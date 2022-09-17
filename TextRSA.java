@@ -1,10 +1,12 @@
 package RSA;
 
+import java.math.BigInteger;
+
 public class TextRSA extends IntRSA {
     String encryptedText;
     String decryptedText;
     String textMessage;
-    public TextRSA(int p, int q){
+    public TextRSA(BigInteger p, BigInteger q){
         super(p, q);
     }
 
@@ -42,4 +44,5 @@ public class TextRSA extends IntRSA {
         return decryptedText;
     }
 }
+
 
