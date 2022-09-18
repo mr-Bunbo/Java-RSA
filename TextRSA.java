@@ -3,7 +3,7 @@ package RSA;
 import java.math.BigInteger;
 
 public class TextRSA extends IntRSA {
-    String encryptedText;
+    BigInteger[] encryptedText;
     String decryptedText;
     String textMessage;
     public TextRSA(BigInteger p, BigInteger q){
@@ -26,21 +26,20 @@ public class TextRSA extends IntRSA {
         return String.join("", stringArray);
     }
 
-    public String textEncrypt(String textMessage){
-        BigInteger[] temp = stringToBigIntArray(textMessage);
-        for (int count = 0; count < temp.length; count++){
-            temp[count] = encryptNumber(temp[count]);
+    public BigInteger[] textEncrypt(String textMessage){
+        encryptedText = stringToBigIntArray(textMessage);
+        for (int count = 0; count < encryptedText.length; count++){
+            encryptedText[count] = encryptNumber(encryptedText[count]);
         }
-        encryptedText = arrayToString(temp);
         return encryptedText;
     }
 
     public String textDecrypt(){
-        BigInteger[] temp = stringToBigIntArray(encryptedText);
-        for (int count = 0; count < temp.length; count++){
-            temp[count] = decryptNumber(temp[count]);
+         //BigInteger[] temp = stringToBigIntArray(encryptedText)
+        for (int count = 0; count < encryptedText.length; count++){
+            encryptedText[count] = decryptNumber(encryptedText[count]);
         }
-        decryptedText = arrayToString(temp);
+        decryptedText = arrayToString(encryptedText);
         return decryptedText;
     }
 }
