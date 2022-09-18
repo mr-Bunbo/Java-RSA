@@ -10,24 +10,24 @@ public class TextRSA extends IntRSA {
         super(p, q);
     }
 
-    protected int[] stringToIntArray(String textMessage){
-        int[] result = new int[textMessage.length()];
+    protected BigInteger[] stringToBigIntArray(String textMessage){
+        BigInteger[] result = new BigInteger[textMessage.length()];
         for(int count = 0; count < textMessage.length(); count++){
-            result[count] = textMessage.charAt(count);
+            result[count] = BigInteger.valueOf((int) textMessage.charAt(count)); // result[count] = textMessage.charAt(count)
         }
         return result;
     }
 
-    protected String arrayToString(int[] array){
+    protected String arrayToString(BigInteger[] array){
         String[] stringArray = new String[array.length];
         for (int count = 0; count < array.length; count++){
-            stringArray[count] = Character.toString( (char) array[count]);
+            stringArray[count] = Character.toString( (char) array[count].intValue());
         }
         return String.join("", stringArray);
     }
 
     public String textEncrypt(String textMessage){
-        int[] temp = stringToIntArray(textMessage);
+        BigInteger[] temp = stringToBigIntArray(textMessage);
         for (int count = 0; count < temp.length; count++){
             temp[count] = encryptNumber(temp[count]);
         }
@@ -36,7 +36,7 @@ public class TextRSA extends IntRSA {
     }
 
     public String textDecrypt(){
-        int[] temp = stringToIntArray(encryptedText);
+        BigInteger[] temp = stringToBigIntArray(encryptedText);
         for (int count = 0; count < temp.length; count++){
             temp[count] = decryptNumber(temp[count]);
         }

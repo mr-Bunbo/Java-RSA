@@ -3,7 +3,7 @@ package RSA;
 import java.math.BigInteger;
 
 public class IntRSA {
-    protected int intMessage, encryptedNumber, decryptedNumber;
+    protected BigInteger encryptedNumber, decryptedNumber, intMessage;
     protected BigInteger[] ferma = {BigInteger.valueOf(3), BigInteger.valueOf(5), BigInteger.valueOf(17), BigInteger.valueOf(257), BigInteger.valueOf(65537)};
     private BigInteger d, p, q, n, fi, e;
 
@@ -21,19 +21,19 @@ public class IntRSA {
     protected BigInteger gcd(BigInteger first, BigInteger second){
 
 
-        if (second.compareTo(first) == 1) return gcd(second, first); //second > first
-        if (second.compareTo(BigInteger.valueOf(0)) == 0) return first; //second == BigInteger.valueOf(0)
-        return gcd(second, first.mod(second)); //first % second
+        if (second.compareTo(first) == 1) return gcd(second, first);
+        if (second.compareTo(BigInteger.valueOf(0)) == 0) return first;
+        return gcd(second, first.mod(second));
     }
     protected BigInteger setE(BigInteger[] ferma){
         for (BigInteger x: ferma){
-            if (gcd(x, fi).compareTo(BigInteger.valueOf(1)) == 0) return x; //gcd(x, fi) == BigInteger.valueOf(1)
+            if (gcd(x, fi).compareTo(BigInteger.valueOf(1)) == 0) return x;
         }
         return BigInteger.valueOf(-1);
     }
 
-    public int encryptNumber(int intMessage){
-        encryptedNumber = myPow(BigInteger.valueOf(intMessage), e, n).intValue(); // BigInteger.valueOf(intMessage).pow(e.intValue()).mod(n).intValue()
+    public BigInteger encryptNumber(BigInteger intMessage){
+        encryptedNumber = myPow(intMessage, e, n);
         return encryptedNumber;
     }
 
@@ -50,12 +50,12 @@ public class IntRSA {
         return number;
     }
 
-    public int decryptNumber(){
-        decryptedNumber = myPow(BigInteger.valueOf(encryptedNumber), d, n).intValue(); // BigInteger.valueOf(encryptedNumber).pow(d.intValue()).mod(n).intValue()
+    public BigInteger decryptNumber(){
+        decryptedNumber = myPow(encryptedNumber, d, n);
         return decryptedNumber;
     }
-    public int decryptNumber(int encryptedNumber){
-        decryptedNumber = myPow(BigInteger.valueOf(encryptedNumber), d, n).intValue(); // BigInteger.valueOf(encryptedNumber).pow(d.intValue()).mod(n).intValue()
+    public BigInteger decryptNumber(BigInteger encryptedNumber){
+        decryptedNumber = myPow(encryptedNumber, d, n);
         return decryptedNumber;
     }
 
